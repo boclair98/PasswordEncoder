@@ -26,6 +26,11 @@ String encodedPassword = passwordEncoder.encode(members.getPassword());
 member.setPassword(encodedPassword);
 
 
-`![암호화 예시](.![image](https://github.com/user-attachments/assets/6e82a556-6d30-4a52-aea3-f4175403fea3)
+
+## 암호화 적용 예시
+
+회원가입 시 비밀번호가 아래처럼 암호화되어 저장됩니다.
+
+![암호화 예시](image/암호화.png)
 `
 
