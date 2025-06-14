@@ -10,6 +10,9 @@ import org.springframework.boot.logging.logback.StructuredLogEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MemberService {
 
@@ -28,6 +31,7 @@ public class MemberService {
         member.setMemberName(members.getMemberName());
         String encodedPassword = passwordEncoder.encode(members.getPassword());
         member.setPassword(encodedPassword);
+        member.setSex(members.getSex());
         member.setAge(members.getAge());
         memberRepository.save(member);
     }
@@ -40,5 +44,13 @@ public class MemberService {
     //중복 이름.
     public boolean chekName(String memberName) {
         return memberRepository.existsByMemberName(memberName);
+    }
+
+    public Optional<Member> findId(Long id){
+        return memberRepository.findById(id);
+    }
+
+    public List<Member> findFaker(){
+        return memberRepository.findByFixedName();
     }
 }

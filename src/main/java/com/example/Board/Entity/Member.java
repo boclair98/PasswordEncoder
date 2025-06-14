@@ -1,5 +1,6 @@
 package com.example.Board.Entity;
 
+import com.example.Board.Enum.Sex;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,10 @@ public class Member {
 
     @Column(name = "member_password")
     private String password;
+
+    @Column(name ="member_sex")
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
 
     @Column(name = "member_age")
     private int age;

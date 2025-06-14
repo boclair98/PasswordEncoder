@@ -3,6 +3,7 @@ package com.example.Board.Controller;
 import com.example.Board.Dto.Members;
 import com.example.Board.Entity.Board;
 import com.example.Board.Entity.Member;
+import com.example.Board.Enum.Sex;
 import com.example.Board.Service.BoardService;
 import com.example.Board.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class MainController {
             model.addAttribute("errorMessage", "❌ 이미 사용 중인 이메일입니다.");
             return "member/createMember";
         }
+        members.setSex(Sex.BOY);
         memberService.save(members);
         return "redirect:/login";
     }
