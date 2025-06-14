@@ -25,5 +25,7 @@ Spring Boot 기반 로그인 회원가입 기능에서 **비밀번호 암호화(
 String encodedPassword = passwordEncoder.encode(members.getPassword());
 member.setPassword(encodedPassword);
 
-![image](https://github.com/user-attachments/assets/ce23fa47-3e17-49fa-9bac-e50e1098d460)
+
+`![암호화 예시](.![image](https://github.com/user-attachments/assets/6e82a556-6d30-4a52-aea3-f4175403fea3)
+`
 
