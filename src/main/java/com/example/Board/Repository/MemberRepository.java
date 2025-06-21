@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member,Long> {
@@ -13,9 +14,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     boolean existsByMemberEmail(String email);
 
     boolean existsByMemberName(String name);
-
-
-    @Query("select m from Member m where m.memberName = '대상혁'")
-    List<Member> findByFixedName();
+    Optional<Member> findByMemberEmail(String Email);
 
 }

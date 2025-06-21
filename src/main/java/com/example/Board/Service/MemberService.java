@@ -3,6 +3,7 @@ package com.example.Board.Service;
 import com.example.Board.Dto.Members;
 import com.example.Board.Entity.Board;
 import com.example.Board.Entity.Member;
+import com.example.Board.Enum.LoginResult;
 import com.example.Board.Repository.BoardRepository;
 import com.example.Board.Repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,17 @@ public class MemberService {
         return memberRepository.findById(id);
     }
 
-    public List<Member> findFaker(){
-        return memberRepository.findByFixedName();
+    //멤버 로그인 검증.
+    public LoginResult login(String email, String password){
+        Optional<Member> memberEmail = memberRepository.findByMemberEmail(email);
+        if(memberEmail.isPresent()){
+            Member member = memberEmail.get();
+            if(passwordEncoder.matches(password,member.getPassword())){
+                return LoginResult.SUCCESS;
+            }else{
+                return LoginResult.PASSWORD_MISMATCH;
+            }
+        }
+        return LoginResult.EMAIL_NOT_FOUND;
     }
 }
