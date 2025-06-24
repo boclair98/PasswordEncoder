@@ -24,8 +24,7 @@ public class Board {
     private LocalDateTime localDateTime;
     @Column(name ="board_text")
     private String text;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 }

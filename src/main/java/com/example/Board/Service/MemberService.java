@@ -52,16 +52,16 @@ public class MemberService {
     }
 
     //멤버 로그인 검증.
-    public LoginResult login(String email, String password){
+    public Member login(String email, String password){
         Optional<Member> memberEmail = memberRepository.findByMemberEmail(email);
         if(memberEmail.isPresent()){
             Member member = memberEmail.get();
             if(passwordEncoder.matches(password,member.getPassword())){
-                return LoginResult.SUCCESS;
+                return member;
             }else{
-                return LoginResult.PASSWORD_MISMATCH;
+                return null;
             }
         }
-        return LoginResult.EMAIL_NOT_FOUND;
+        return null;
     }
 }

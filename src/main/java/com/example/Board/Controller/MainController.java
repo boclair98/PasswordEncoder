@@ -8,7 +8,8 @@ import com.example.Board.Enum.Sex;
 import com.example.Board.Service.BoardService;
 import com.example.Board.Service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.xml.ws.Response;
+import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,28 +53,36 @@ public class MainController {
         String value = request.getParameter("sex");
         members.setSex(Sex.valueOf(value));
         memberService.save(members);
-        return "redirect:/login";
+        return "redirect:/home/member/login";
     }
-
+    
     @GetMapping("/member/login")
     public String login(){
         return "member/login";
     }
 
     @PostMapping("/member/login")
-    @ResponseBody
-    public ResponseEntity<String> loginW(@RequestParam("email") String email,
-                                 @RequestParam("password") String password){
-        LoginResult result = memberService.login(email, password);
-        if (result == LoginResult.SUCCESS) {
-            return ResponseEntity.ok("로그인 성공!");
-        } else if (result == LoginResult.EMAIL_NOT_FOUND) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디가 틀렸어요");
-        } else if (result == LoginResult.PASSWORD_MISMATCH) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 틀렸어요");
+    public String loginW(@RequestParam("email") String email,
+                         @RequestParam("password") String password,
+                         HttpSession session,
+                         Model model){
+        Member member = memberService.login(email, password);
+
+        if (member != null) {
+            // 로그인 성공 시 세션에 로그인한 멤버 저장
+            session.setAttribute("loginMember", member);
+            model.addAttribute("member",member);
+            return "member/s";
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("알 수 없는 오류입니다.");
+            // 로그인 실패 (이메일 또는 비밀번호 오류)
+            return "member/login";
         }
+    }
+
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
 }

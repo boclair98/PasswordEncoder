@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,9 @@ public class Member {
 
     @Column(name = "member_age")
     private int age;
+
+    @CreationTimestamp
+    private LocalDateTime localDateTime;
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Board> boardLists = new ArrayList<>();
