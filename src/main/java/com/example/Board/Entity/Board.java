@@ -22,8 +22,11 @@ public class Board {
     @Column(name = "board_localDateTime")
     @CreationTimestamp
     private LocalDateTime localDateTime;
+    private String title;
     @Column(name ="board_text")
-    private String text;
+    private String content;
+    @Column(name="board_password")
+    private int password;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

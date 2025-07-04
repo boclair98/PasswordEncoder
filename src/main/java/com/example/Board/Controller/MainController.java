@@ -55,7 +55,7 @@ public class MainController {
         memberService.save(members);
         return "redirect:/home/member/login";
     }
-    
+
     @GetMapping("/member/login")
     public String login(){
         return "member/login";

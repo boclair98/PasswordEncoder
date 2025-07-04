@@ -1,120 +1,24 @@
+<!-- templates/member/login.html -->
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
     <title>로그인</title>
-    <!-- Bootstrap CSS -->
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-    />
-    <style>
-        body {
-            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: "Noto Sans KR", sans-serif;
-        }
-        .card {
-            border-radius: 1rem;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-        }
-        .form-label {
-            font-weight: 600;
-        }
-        .password-wrapper {
-            position: relative;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: none;
-            background: none;
-            cursor: pointer;
-            color: #6c757d;
-            font-size: 1.1rem;
-            user-select: none;
-        }
-        .toggle-password:focus {
-            outline: none;
-            color: #0d6efd;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5 col-lg-4">
-            <div class="card p-4">
-                <h4 class="card-title text-center mb-4">로그인</h4>
-
-                <!-- 에러 메시지 -->
-                <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
-
-                <form th:action="@{/home/member/login}" method="post" >
-                    <div class="mb-3">
-                        <label for="email" class="form-label">이메일</label>
-                        <input
-                                type="email"
-                                class="form-control"
-                                id="email"
-                                name="email"
-                                placeholder="이메일을 입력하세요"
-                                required
-                        />
-                    </div>
-
-                    <div class="mb-3 password-wrapper">
-                        <label for="password" class="form-label">비밀번호</label>
-                        <input
-                                type="password"
-                                class="form-control"
-                                id="password"
-                                name="password"
-                                placeholder="비밀번호를 입력하세요"
-                                required
-                        />
-                        <button type="button" class="toggle-password" aria-label="비밀번호 토글" title="비밀번호 보기">👁️</button>
-                    </div>
-
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary fw-semibold">로그인</button>
-                    </div>
-                </form>
-
-                <!-- 회원가입 버튼 추가 -->
-                <div class="d-grid mt-3">
-                    <a href="/home/member/create" class="btn btn-outline-success fw-semibold">회원가입</a>
-                </div>
-            </div>
-        </div>
+<body class="container mt-5">
+<h2>로그인</h2>
+<form th:action="@{/home/member/login}" method="post" class="mt-4">
+    <div class="mb-3">
+        <label class="form-label">이메일</label>
+        <input type="email" name="email" class="form-control" required>
     </div>
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    const toggleBtn = document.querySelector('.toggle-password');
-    const passwordInput = document.getElementById('password');
-
-    toggleBtn.addEventListener('click', () => {
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleBtn.textContent = '🙈';
-        toggleBtn.title = '비밀번호 숨기기';
-      } else {
-        passwordInput.type = 'password';
-        toggleBtn.textContent = '👁️';
-        toggleBtn.title = '비밀번호 보기';
-      }
-    });
-</script>
-
+    <div class="mb-3">
+        <label class="form-label">비밀번호</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">로그인</button>
+    <a th:href="@{/home}" class="btn btn-secondary">홈으로</a>
+</form>
 </body>
 </html>
